@@ -29,11 +29,4 @@ node[:deploy].each do |application, deploy|
     deploy_data deploy
     app application
   end
-
-  deploy_secrets do #might cause issues if migrations depend on production keys
-    group deploy[:group]
-    owner deploy[:user]
-    path deploy[:deploy_to]
-    environment deploy[:rails_env]
-  end
 end

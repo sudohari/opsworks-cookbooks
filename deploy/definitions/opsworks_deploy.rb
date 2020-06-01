@@ -165,6 +165,13 @@ define :opsworks_deploy do
     end
   end
 
+  deploy_secrets do #might cause issues if migrations depend on production keys
+    group deploy[:group]
+    owner deploy[:user]
+    path deploy[:deploy_to]
+    environment deploy[:rails_env]
+  end
+  
   ruby_block "change HOME back to /root after source checkout" do
     block do
       ENV['HOME'] = "/root"
