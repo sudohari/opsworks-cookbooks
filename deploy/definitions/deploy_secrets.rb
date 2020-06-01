@@ -10,7 +10,7 @@ define :deploy_secrets do
     recursive true
   end
 
-  template "#{params[:deploy_to]}/shared/config/credentials/#{params[:environment]}.key" do
+  template "#{params[:path]}/shared/config/credentials/#{params[:environment]}.key" do
     cookbook "deploy"
     source "environment.key.erb"
     mode "0660"
