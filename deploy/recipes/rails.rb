@@ -25,6 +25,13 @@ node[:deploy].each do |application, deploy|
     app application
   end
 
+  deploy_secrets do
+    group deploy[:group]
+    owner deploy[:user]
+    path deploy[:deploy_to]
+    environment deploy[:rails_env]
+  end
+
   opsworks_deploy do
     deploy_data deploy
     app application
