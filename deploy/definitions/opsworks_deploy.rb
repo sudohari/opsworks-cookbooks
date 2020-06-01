@@ -78,11 +78,12 @@ define :opsworks_deploy do
       symlinks(deploy[:symlinks]) unless deploy[:symlinks].nil?
       action deploy[:action]
 
-      deploy_secrets do #might cause issues if migrations depend on production keys
-        group deploy[:group]
+      template "#{node[:deploy][application][:deploy_to]}/current/config/credentials/#{node[:deploy][application][:rails_env]}.key" do
+        cookbook "deploy"
+        source "environment.key.erb"
+        mode "0660"
         owner deploy[:user]
-        path deploy[:deploy_to]
-        environment deploy[:rails_env]
+        group deploy[:group]
       end
 
       if deploy[:application_type] == 'rails' && node[:opsworks][:instance][:layers].include?('rails-app')
