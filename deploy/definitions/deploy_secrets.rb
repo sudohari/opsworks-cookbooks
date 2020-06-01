@@ -11,7 +11,7 @@ define :deploy_secrets do
   end
 
   template "#{params[:deploy_to]}/shared/config/credentials/#{params[:environment]}.key" do
-    cookbook "rails"
+    cookbook "deploy"
     source "environment.key.erb"
     mode "0660"
     owner params[:user]
