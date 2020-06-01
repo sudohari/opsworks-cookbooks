@@ -1,6 +1,7 @@
 define :deploy_secrets do
   Chef::Log.info "wow here"
   Chef::Log.info params.inspect
+  Chef::Log.info node.inspect
 
   directory "#{params[:path]}/shared/config/credentials" do
     group params[:group]
