@@ -78,13 +78,6 @@ define :opsworks_deploy do
       symlinks(deploy[:symlinks]) unless deploy[:symlinks].nil?
       action deploy[:action]
 
-      execute 'rake assets:precompile' do
-        cwd "#{node[:deploy_to]}/current"
-        user 'root'
-        command 'bundle exec rake assets:precompile'
-        environment 'RAILS_ENV' => node[:environment_variables][:RAILS_ENV]
-      end
-
       if deploy[:application_type] == 'rails' && node[:opsworks][:instance][:layers].include?('rails-app')
         restart_command "sleep #{deploy[:sleep_before_restart]} && #{node[:opsworks][:rails_stack][:restart_command]}"
       end
@@ -170,6 +163,13 @@ define :opsworks_deploy do
         action :delete
       end
     end
+  end
+
+  execute 'rake assets:precompile' do
+    cwd "#{node[:deploy_to]}/current"
+    user 'root'
+    command 'bundle exec rake assets:precompile'
+    environment 'RAILS_ENV' => node[:environment_variables][:RAILS_ENV]
   end
 
   ruby_block "change HOME back to /root after source checkout" do
