@@ -165,18 +165,15 @@ define :opsworks_deploy do
     end
   end
 
-  begin 
-    execute 'rake assets:precompile' do
-      cwd "#{node[:deploy_to]}/current"
-      user 'root'
-      group deploy[:group]
-      command 'bundle exec rake assets:precompile'
-      environment 'RAILS_ENV' => node[:deploy][application][:rails_env]
-    end
-  rescue StandardError => se  
-    Chef::Log.info "StandardError", se.inspect
-  rescue Exception => e
-    Chef::Log.info "Exception", e.inspect
+  Chef::Log.info node.inspect
+  Chef::Log.info node[deploy_to]
+  Chef::Log.info node[:deploy][application][:rails_env]
+  execute 'rake assets:precompile' do
+    cwd "#{node[:deploy_to]}/current"
+    user 'root'
+    group deploy[:group]
+    command 'bundle exec rake assets:precompile'
+    environment 'RAILS_ENV' => node[:deploy][application][:rails_env]
   end
 
   ruby_block "change HOME back to /root after source checkout" do
