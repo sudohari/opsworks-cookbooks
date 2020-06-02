@@ -169,7 +169,7 @@ define :opsworks_deploy do
     cwd "#{node[:deploy_to]}/current"
     user 'root'
     command 'bundle exec rake assets:precompile'
-    environment 'RAILS_ENV' => node[:environment_variables][:RAILS_ENV]
+    environment 'RAILS_ENV' => node[:deploy][application][:rails_env]
   end
 
   ruby_block "change HOME back to /root after source checkout" do
