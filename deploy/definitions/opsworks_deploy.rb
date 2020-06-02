@@ -165,20 +165,20 @@ define :opsworks_deploy do
     end
   end
 
-  Chef::Log.info "Asset Precompile"
-  Chef::Log.info node.inspect
-  Chef::Log.info application
-  Chef::Log.info deploy[:group]
-  Chef::Log.info node[:deploy][application][:deploy_to]
-  Chef::Log.info node[:deploy][application][:rails_env]
+  # Chef::Log.info "Asset Precompile"
+  # Chef::Log.info node.inspect
+  # Chef::Log.info application
+  # Chef::Log.info deploy[:group]
+  # Chef::Log.info node[:deploy][application][:deploy_to]
+  # Chef::Log.info node[:deploy][application][:rails_env]
 
-  execute 'rake assets:precompile:primary' do
-    cwd "#{node[:deploy][application][:deploy_to]}/current"
-    user 'root'
-    # group deploy[:group]
-    command 'bundle exec bin/rails assets:precompile:primary --trace'
-    environment 'RAILS_ENV' => node[:deploy][application][:rails_env]
-  end
+  # execute 'rake assets:precompile:primary' do
+  #   cwd "#{node[:deploy][application][:deploy_to]}/current"
+  #   user 'root'
+  #   # group deploy[:group]
+  #   command 'bundle exec bin/rails assets:precompile:primary --trace'
+  #   environment 'RAILS_ENV' => node[:deploy][application][:rails_env]
+  # end
 
   ruby_block "change HOME back to /root after source checkout" do
     block do
