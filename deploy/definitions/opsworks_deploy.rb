@@ -175,7 +175,7 @@ define :opsworks_deploy do
   execute 'rake assets:precompile' do
     cwd "#{node[:deploy][application][:deploy_to]}/current"
     user 'root'
-    group deploy[:group]
+    # group deploy[:group]
     command 'bundle exec bin/rails assets:precompile'
     environment 'RAILS_ENV' => node[:deploy][application][:rails_env]
   end
