@@ -176,7 +176,7 @@ define :opsworks_deploy do
     cwd "#{node[:deploy][application][:deploy_to]}/current"
     user 'root'
     # group deploy[:group]
-    command 'bundle exec bin/rails assets:precompile'
+    command 'bundle exec bin/rails assets:precompile --trace'
     environment 'RAILS_ENV' => node[:deploy][application][:rails_env]
   end
 
