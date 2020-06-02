@@ -172,11 +172,11 @@ define :opsworks_deploy do
   Chef::Log.info node[:deploy][application][:deploy_to]
   Chef::Log.info node[:deploy][application][:rails_env]
 
-  execute 'rake assets:precompile' do
+  execute 'rake assets:precompile:primary' do
     cwd "#{node[:deploy][application][:deploy_to]}/current"
     user 'root'
     # group deploy[:group]
-    command 'bundle exec bin/rails assets:precompile --trace'
+    command 'bundle exec bin/rails assets:precompile:primary --trace'
     environment 'RAILS_ENV' => node[:deploy][application][:rails_env]
   end
 
