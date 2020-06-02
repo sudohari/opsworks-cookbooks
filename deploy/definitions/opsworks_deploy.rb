@@ -165,7 +165,7 @@ define :opsworks_deploy do
     end
   end
 
-  Chef::Log "Asset Precompile"
+  Chef::Log.info "Asset Precompile"
   Chef::Log.info node.inspect
   Chef::Log.info application
   Chef::Log.info deploy[:group]
