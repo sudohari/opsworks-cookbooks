@@ -166,7 +166,7 @@ define :opsworks_deploy do
   end
 
   Chef::Log.info node.inspect
-  Chef::Log.info node[deploy_to]
+  Chef::Log.info node[:deploy_to]
   Chef::Log.info node[:deploy][application][:rails_env]
   execute 'rake assets:precompile' do
     cwd "#{node[:deploy_to]}/current"
